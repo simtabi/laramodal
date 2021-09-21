@@ -1,0 +1,45 @@
+{
+    "name": "simtabi/laramodal",
+    "description": "A bootstrap modal package for laravel livewire",
+    "keywords": [
+        "livewire-modal",
+        "Modal",
+        "Laravel",
+        "Livewire"
+    ],
+    "homepage": "https://github.com/simtabi/laramodal",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Imani Manyara",
+            "email": "hello@simtabi.com",
+            "homepage": "https://www.simtabi.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.3",
+        "livewire/livewire": "^2.0",
+        "illuminate/view": "^7.0 || ^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Simtabi\\Laramodal\\": "src"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Simtabi\\Laramodal\\LaramodalServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
