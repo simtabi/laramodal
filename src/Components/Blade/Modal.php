@@ -25,7 +25,7 @@ class Modal extends Component
      */
     public function render()
     {
-        return view('laramodal::components.ui.modal');
+        return view('laramodal::components.modal');
     }
 
 }
