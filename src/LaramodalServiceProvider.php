@@ -5,7 +5,6 @@ namespace Simtabi\Laramodal;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
-use Simtabi\Laramodal\Components\Blade\Modal;
 use Simtabi\Laramodal\Components\Blade\Trigger;
 use Simtabi\Laramodal\Components\Livewire\Laramodal;
 
@@ -45,7 +44,6 @@ class LaramodalServiceProvider extends ServiceProvider
 
         $this->loadViewComponentsAs('laramodal', [
             'trigger' => Trigger::class,
-            'modal'   => Modal::class,
         ]);
 
         $this->registerDirectives();
@@ -77,9 +75,8 @@ class LaramodalServiceProvider extends ServiceProvider
     {
 
         // inject required css & javascript
-        Blade::include('laramodal::styles', 'laramodalStylesInit');
-        Blade::include('laramodal::scripts', 'laramodalScriptsInit');
-
+        Blade::include('laramodal::init', 'laramodalInit');
+       
         Blade::directive('laramodalStyles', function () {
             return $this->getComponentStyles();
         });
