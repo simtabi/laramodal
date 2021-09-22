@@ -1,6 +1,6 @@
 @props([
     'selfCall' => false,
-    'component',
+    'modal',
     'size',
     'heading',
     'subHeading',
@@ -9,10 +9,10 @@
 
 <button
         x-data x-on:click="$dispatch('open-x-modal', {
-        component: '{{ $component }}',
-        size:      '{{ $size ?? 'lg' }}',
-        args:      {!! str_replace('"', '\'', e(json_encode(array_merge(($args ?? []), [
-                        'component'  => $component  ?? '',
+        modal : '{{ $modal }}',
+        size  : '{{ $size ?? 'lg' }}',
+        args  : {!! str_replace('"', '\'', e(json_encode(array_merge(($args ?? []), [
+                        'modal'      => $modal      ?? '',
                         'size'       => $size       ?? '',
                         'heading'    => $heading    ?? '',
                         'subHeading' => $subHeading ?? '',

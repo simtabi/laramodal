@@ -8,7 +8,7 @@ use Illuminate\View\Component;
 class Trigger extends Component
 {
 
-    public string  $component;
+    public string  $modal;
     public string  $size     = 'lg';
     public ?string $heading;
     public ?string $subHeading;
@@ -20,9 +20,9 @@ class Trigger extends Component
      *
      * @return void
      */
-    public function __construct($component, string $heading = null, string $subHeading = null, string $size = 'lg', bool $selfCall = false, array $args = [])
+    public function __construct($modal, string $heading = null, string $subHeading = null, string $size = 'lg', bool $selfCall = false, array $args = [])
     {
-        $this->component  = $component;
+        $this->modal      = $modal;
         $this->size       = $size;
         $this->heading    = $heading;
         $this->subHeading = $subHeading;

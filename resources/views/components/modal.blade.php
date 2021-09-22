@@ -1,18 +1,19 @@
 <div
-        id="x-modal"
-        class="modal fade"
-        tabindex="-1"
-        aria-hidden="true"
-        role="dialog"
-        aria-labelledby="modal"
+    id="x-modal"
+    class="modal fade"
+    tabindex="-1"
+    aria-hidden="true"
+    role="dialog"
+    aria-labelledby="modal"
 >
 
-    <div x-data="laramodal()"
-         x-on:open-x-modal.window="onOpen($event)"
-         x-on:modal-ready.window="ready = true"
-         x-init="boot()"
-         class="modal-dialog modal-dialog-centered mw-900px"
-         :class="[size ? `modal-${size}` : '']" role="document"
+    <div
+        x-data="laramodal()"
+        x-init="boot()"
+        x-on:open-x-modal.window="onOpen($event)"
+        x-on:modal-ready.window="ready = true"
+        class="modal-dialog modal-dialog-centered mw-900px"
+        :class="[size ? `modal-${size}` : '']" role="document"
     >
         <div class="modal-content">
 
@@ -65,11 +66,7 @@
                     <!--begin::Modal body-->
                     <div class="modal-body py-lg-10 px-lg-10 bg-body">
                         <div wire:loading.remove>
-                            @if(session()->has('alertify'))
-                                <x-laramodal-alertify show :type="session('alertify')['type']">
-                                    {!! session('alertify')['message'] !!}
-                                </x-laramodal-alertify>
-                            @endif
+
                         </div>
 
                         {{-- progress ui --}}

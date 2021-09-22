@@ -10,6 +10,23 @@ class Laramodal extends Component
 
     use HasLivewireEvents;
 
+    public ?string $activeModal = null;
+    public array   $args        = [];
+
+    protected $listeners        = ['openModal', 'closeModal'];
+
+    public function openModal($modal, $args = []) {
+        $this->activeModal = $modal;
+        $this->args        = $args;
+
+        $this->dispatchBrowserEvent('modal-ready', ['modal' => $modal]);
+    }
+
+    public function closeModal() {
+        $this->reset(['activeModal', 'args']);
+    }
+
+
     public function __construct()
     {
         $this->initComponent();
@@ -17,7 +34,7 @@ class Laramodal extends Component
 
     public function render()
     {
-        return view('laramodal::livewire.modal');
+        return view('laramodal::livewire.laramodal');
     }
 
 }

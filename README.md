@@ -1,11 +1,6 @@
 # Livewire Modal
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/simtabi/laramodal.svg?style=flat-square)](https://packagist.org/packages/simtabi/laramodal)
-[![Total Downloads](https://img.shields.io/packagist/dt/simtabi/laramodal.svg?style=flat-square)](https://packagist.org/packages/simtabi/laramodal)
-
-Turn Laravel Livewire Component into Modal.
-
-<img src="https://staging.voyantcs.com/sourav/static/laramodal-sample-alt.gif" width="720" />
+Turn any Laravel Livewire Component into Modal.
 
 ## 🏷 Features
 - Modal triggered by javascript i.e. opens instantly without waiting for livewire network round trip to finish ( no laggy feeling )
@@ -15,12 +10,10 @@ Turn Laravel Livewire Component into Modal.
 
 ## 🧾 Requirements
 
-| **Bootstrap**  | 4 or 5 | *no bootstrap support coming soon*
-|---|---|---|
-| Jquery  |   | *for bootstrap 4 only* 
-|  Laravel | >= 7 |   |
-|  Livewire | >= 2.0  |   |
-|  Alpine JS |  |   |
+- Bootstrap 5
+- Laravel  >= 7
+- Livewire >= 2.0
+- Alpine JS 
 
 
 ## 📥 Installation
@@ -34,32 +27,31 @@ composer require simtabi/laramodal
 <html>
 <head>
     ...
-    @livewireStyles
+    @laramodalStylesInit
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 </head>
 <body>
     ...
-    <x-laramodal-base /> 👈
-    @livewireScripts
+    @laramodalScriptsInit
 </body>
 </html>
 ```
 
 #### Publish assets
 ```shell
-php artisan vendor:publish --provider="Simtabi\Laramodal\LaramodalServiceProvider" --tag=public
+php artisan vendor:publish --force --tag=laramodal:assets
 ```
 
 #### Publish config
 ```shell
-php artisan vendor:publish --provider="Simtabi\Laramodal\LaramodalServiceProvider" --tag=config
+php artisan vendor:publish --force --tag=laramodal:config
 ```
-> config support bootstrap theme: bs4 | bs5
+> config support bootstrap theme: bs5
  
 ### 📌 Updating
 > **Important:** when updating the package make sure to re-publish the assets with `--force` flag
 ```shell
-php artisan vendor:publish --provider="Simtabi\Laramodal\LaramodalServiceProvider" --tag=public --force
+php artisan vendor:publish --force --tag=laramodal:assets
 ```
 
 
@@ -94,11 +86,11 @@ No consideration required, create livewire component as usual. Use livewire's `m
 ###### ✔️ Via Trigger Blade Component
 
 ```html
-<x-laramodal-trigger class="btn" 
-	title="Modal Heading"
-	modal="component-name"
-   :args="['sky' => 'blue', 'moon' => 1]" 
-   lg>open
+   <x-laramodal-trigger class="btn btn-lg btn-block btn-flex btn-primary btn-active-primary fw-bolder text-center"
+                        modal="component-name"
+                        :args="[]"
+>
+    {{__('Title')}}
 </x-laramodal-trigger>
 ```
 
@@ -109,23 +101,6 @@ $this->dispatchBrowserEvent('open-x-modal', ['title' => 'My Modal', 'modal' => '
 ```
 
 > 💡 Modal size supports `sm` `lg` `xl`        *// completely optional*
-
-## 🌈 Bonus
-you are free to put content in livewire view file in any structure, however the package provides an blade component for bootstrap modal which you can use as:
-
-```html
-<x-laramodal-modal>
-    <div class="row">
-        ...
-    </div>
-    ...
-
-    <x-slot name="footer">
-        ...
-        <button type="button" class="..">Save</button>
-    </x-slot>
-</x-laramodal-modal>
-```
 
 #### ✌🏼 Two reasons to use this component
 
@@ -147,4 +122,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 ## 👋🏼 Say Hi! 
 Leave a ⭐ if you find this package useful 👍🏼,
-don't forget to let me know in [Twitter](https://twitter.com/srvrksh)  
+don't forget to let me know in [Twitter](https://twitter.com/simtabi)  
