@@ -62,7 +62,7 @@
                 </div>
 
                 <div
-                        x-show="show && showActiveComponent"
+                    x-show="show && showActiveComponent"
                 >
                     <!--begin::Modal body-->
                     <div class="modal-body py-lg-10 px-lg-10 bg-body">

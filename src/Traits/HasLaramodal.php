@@ -16,6 +16,11 @@ trait HasLaramodal
         $this->emitModalEvents($events);
     }
 
+    public function resetState()
+    {
+        $this->resetModal();
+    }
+
     public function resetModal()
     {
         $this->reset();

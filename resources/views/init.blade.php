@@ -65,7 +65,7 @@
                     } else {
                         document.body.classList.remove('overflow-y-hidden');
 
-                        setTimeout(function () {
+                        setTimeout(() => {
                             this.activeComponent = false;
                             this.$wire.resetState();
                         }, 300);
@@ -77,7 +77,7 @@
                 });
 
                 Livewire.on('hideModal', () => {
-                    this.closeModal();
+                   this.closeModal();
                 });
 
                 this.getModalElement().addEventListener('hidden.bs.modal', () => {
