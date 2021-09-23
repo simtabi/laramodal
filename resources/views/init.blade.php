@@ -4,15 +4,18 @@
 @livewire('laramodal')
 
 <script type="application/javascript">
-    window.laramodal = function () {
+    window.laramodal = () => {
         return {
             showActiveComponent : true,
             activeComponent     : false,
-            modalElement        : document.getElementById('x-modal'),
             size                : null,
             heading             : 'Loading . . .',
             subHeading          : '',
-            ready               : false,
+            show                : false,
+
+            getModalElement(){
+                return document.getElementById('x-modal')
+            },
 
             getComponentAttributes(id) {
                 this.showActiveComponent = true;
@@ -30,7 +33,7 @@
             },
 
             showModal(id) {
-                this.ready = true;
+                this.show = true;
 
                 if (this.activeComponent !== false) {
                     this.showActiveComponent = false;
@@ -38,26 +41,36 @@
 
                 this.getComponentAttributes(id);
 
-                new bootstrap.Modal(this.modalElement).show();
+                new bootstrap.Modal(this.getModalElement()).show();
             },
 
-
-            closeModal() {
+            closeModal(id) {
+                this.show = false;
 
                 if(this.getActiveComponentModalAttribute('dispatchCloseEvent') === true) {
                     const componentName = this.$wire.get('components')[this.activeComponent].name;
-                    Livewire.emit('modalClosed', componentName);
+                    window.livewire.emit('modalClosed', componentName);
                 }
 
-                (bootstrap.Modal.getInstance(this.modalElement)).hide();
+                setTimeout(() => {
 
-                this.ready = false;
-                alert('kisses')
+                    (bootstrap.Modal.getInstance(this.getModalElement())).hide();
+
+                    const backdrop = document.querySelector('.modal-backdrop.fade.show');
+
+                    this.getModalElement(id).setAttribute('aria-hidden', 'true');
+                    backdrop.classList.remove('show');
+
+                    setTimeout(() => {
+                        this.getModalElement(id).classList.remove('show');
+                    });
+
+                }, 20);
             },
 
             boot() {
 
-                this.$watch('ready', value => {
+                this.$watch('show', value => {
                     if (value) {
                         document.body.classList.add('overflow-y-hidden');
                     } else {
@@ -74,13 +87,13 @@
                     this.showModal(id);
                 });
 
-                Livewire.on('hideModal', function () {
-                    this.closeModal();
+                Livewire.on('hideModal', () => {
+                   this.closeModal();
                 });
 
-                this.modalElement.addEventListener('hidden.bs.modal', function () {
+                this.getModalElement().addEventListener('hidden.bs.modal', () => {
                     Livewire.emit('resetModal');
-                    this.ready = false;
+                    this.show = false;
                 })
 
             },

@@ -1,7 +1,7 @@
 <div
-    wire:ignore.self
     x-data="laramodal()"
     x-init="boot()"
+    x-show="boot()"
     id="x-modal"
     tabindex="-1"
     aria-hidden="true"
@@ -10,7 +10,6 @@
     data-bs-keyboard="false"
     class="modal fade"
     role="dialog"
-    imani="misati"
 >
 
     <div class="modal-dialog modal-dialog-centered mw-900px" role="document">
@@ -20,7 +19,7 @@
                 <div class="d-flex flex-row align-items-center">
                     <!--begin::Modal title-->
                     <h2 class="modal-title me-4" x-text="heading"></h2>
-                    <template x-if="!ready">
+                    <template x-if="!show">
                         <div class="spinner-border spinner-border-sm text-dark ml-2" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
@@ -45,7 +44,7 @@
             </div>
 
             <div id="x--modal-body-wrapper">
-                <div x-show="!ready">
+                <div x-show="!show">
                     <!--begin::Modal body-->
                     <div class="modal-body py-lg-10 px-lg-10">
                         <div class="row text-center align-items-center justify-content-center">
@@ -61,7 +60,7 @@
                     <!--end::Modal body-->
                 </div>
 
-                <div x-show="ready">
+                <div x-show="show">
                     <!--begin::Modal body-->
                     <div class="modal-body py-lg-10 px-lg-10 bg-body">
                         {{-- progress ui --}}

@@ -12,12 +12,11 @@ class Laramodal extends Component
 
     use HasLivewireEvents;
     use HasLaramodal;
-    
+
     public ?string $activeModal = null;
     public array   $components  = [];
     protected      $listeners   = [
         'openModal'  => 'openModal',
-        'hideModal'  => 'hideModal',
         'resetModal' => 'resetModal',
     ];
     public array   $args        = [];
@@ -54,7 +53,7 @@ class Laramodal extends Component
 
         $this->emit('showModal', $modal);
     }
-    
+
     public function getComponentMethod($method)
     {
 
