@@ -1,7 +1,8 @@
 <div
     x-data="laramodal()"
     x-init="boot()"
-    x-show="boot()"
+    x-show="show"
+    x-on:close.stop="show = false"
     id="x-modal"
     tabindex="-1"
     aria-hidden="true"
@@ -60,7 +61,9 @@
                     <!--end::Modal body-->
                 </div>
 
-                <div x-show="show">
+                <div
+                        x-show="show && showActiveComponent"
+                >
                     <!--begin::Modal body-->
                     <div class="modal-body py-lg-10 px-lg-10 bg-body">
                         {{-- progress ui --}}

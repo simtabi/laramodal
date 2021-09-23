@@ -53,19 +53,8 @@
                 }
 
                 setTimeout(() => {
-
                     (bootstrap.Modal.getInstance(this.getModalElement())).hide();
-
-                    const backdrop = document.querySelector('.modal-backdrop.fade.show');
-
-                    this.getModalElement(id).setAttribute('aria-hidden', 'true');
-                    backdrop.classList.remove('show');
-
-                    setTimeout(() => {
-                        this.getModalElement(id).classList.remove('show');
-                    });
-
-                }, 20);
+                });
             },
 
             boot() {
@@ -88,7 +77,7 @@
                 });
 
                 Livewire.on('hideModal', () => {
-                   this.closeModal();
+                    this.closeModal();
                 });
 
                 this.getModalElement().addEventListener('hidden.bs.modal', () => {
