@@ -86,4 +86,5 @@ class Laramodal extends Component
         $heading = $this->getComponentMethod('modalSubTitle');
         return !empty($heading) ? $heading : ($data['heading'] ?? '');
     }
+
 }

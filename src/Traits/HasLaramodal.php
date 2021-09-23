@@ -18,7 +18,8 @@ trait HasLaramodal
 
     public function resetState()
     {
-        $this->resetModal();
+        $this->activeComponent = null;
+        $this->components      = [];
     }
 
     public function resetModal()
