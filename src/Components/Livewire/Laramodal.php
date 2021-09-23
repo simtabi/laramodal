@@ -3,6 +3,7 @@
 namespace Simtabi\Laramodal\Components\Livewire;
 
 use Livewire\Component;
+use Simtabi\Laramodal\Traits\HasLaramodal;
 use Simtabi\Laranail\Traits\HasLivewireEvents;
 use ReflectionClass;
 
@@ -10,47 +11,30 @@ class Laramodal extends Component
 {
 
     use HasLivewireEvents;
-
+    use HasLaramodal;
+    
     public ?string $activeModal = null;
     public array   $components  = [];
-    public array   $args        = [];
     protected      $listeners   = [
         'openModal'  => 'openModal',
         'hideModal'  => 'hideModal',
         'resetModal' => 'resetModal',
     ];
+    public array   $args        = [];
 
-    public function getComponentMethod($method)
+    public function __construct()
     {
-
-        if (empty($this->activeModal)) {
-            return false;
-        }
-
-        $namespace = app('livewire')->getClass($this->activeModal);
-        if (method_exists($namespace, $method)) {
-           return $namespace::$method();
-        }
-
-        return '';
+        $this->initComponent();
     }
 
-    public function getModalSize($args)
+    public function mount()
     {
-        $size = $this->getComponentMethod('modalSize');
-        return !empty($size) ? $size : ($args['size'] ?? 'lg');
+
     }
 
-    public function getModalHeading($args)
+    public function render()
     {
-        $subHeading = $this->getComponentMethod('modalTitle');
-        return !empty($subHeading) ? $subHeading : ($args['subHeading'] ?? '');
-    }
-
-    public function getModalSubHeading($args)
-    {
-        $heading = $this->getComponentMethod('modalSubTitle');
-        return !empty($heading) ? $heading : ($args['heading'] ?? '');
+        return view('laramodal::livewire.laramodal');
     }
 
     public function openModal($modal, $args = []) {
@@ -69,54 +53,38 @@ class Laramodal extends Component
         ];
 
         $this->emit('showModal', $modal);
-
     }
-
-    public function closeModal(): void
+    
+    public function getComponentMethod($method)
     {
-        $this->emit('hideModal');
-    }
 
-    public function closeModalWithEvents(array $events): void
-    {
-        $this->closeModal();
-        $this->emitModalEvents($events);
-    }
-
-    public function resetModal()
-    {
-        $this->reset();
-    }
-
-    private function emitModalEvents(array $events): void
-    {
-        foreach ($events as $component => $event) {
-            if (is_array($event)) {
-                [$event, $params] = $event;
-            }
-
-            if (is_numeric($component)) {
-                $this->emit($event, ...$params ?? []);
-            } else {
-                $this->emitTo($component, $event, ...$params ?? []);
-            }
+        if (empty($this->activeModal)) {
+            return false;
         }
+
+        $namespace = app('livewire')->getClass($this->activeModal);
+        if (method_exists($namespace, $method)) {
+            return $namespace::$method();
+        }
+
+        return '';
     }
 
-
-    public function mount()
+    public function getModalSize($data)
     {
-
+        $size = $this->getComponentMethod('modalSize');
+        return !empty($size) ? $size : ($data['size'] ?? 'lg');
     }
 
-    public function __construct()
+    public function getModalHeading($data)
     {
-        $this->initComponent();
-        parent::__construct();
+        $subHeading = $this->getComponentMethod('modalTitle');
+        return !empty($subHeading) ? $subHeading : ($data['subHeading'] ?? '');
     }
 
-    public function render()
+    public function getModalSubHeading($data)
     {
-        return view('laramodal::livewire.laramodal');
+        $heading = $this->getComponentMethod('modalSubTitle');
+        return !empty($heading) ? $heading : ($data['heading'] ?? '');
     }
 }
