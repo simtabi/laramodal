@@ -1,5 +1,5 @@
-@laramodalStyles
-@laramodalScripts
+@laramodalCss
+@laramodalJs
 
 @livewire('laramodal')
 
@@ -29,7 +29,6 @@
                 }
             },
 
-
             showModal(id) {
                 this.ready = true;
 
@@ -44,13 +43,16 @@
 
 
             closeModal() {
-                this.ready = false;
-                bootstrap.Modal.getInstance(this.modalElement).hide()
 
                 if(this.getActiveComponentModalAttribute('dispatchCloseEvent') === true) {
                     const componentName = this.$wire.get('components')[this.activeComponent].name;
                     Livewire.emit('modalClosed', componentName);
                 }
+
+                (bootstrap.Modal.getInstance(this.modalElement)).hide();
+
+                this.ready = false;
+                alert('kisses')
             },
 
             boot() {

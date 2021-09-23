@@ -14,11 +14,11 @@ class LaramodalServiceProvider extends ServiceProvider
     private const PATH = __DIR__ . '/../';
 
     public static array $assets = [
-        'styles'  => [
+        'css'  => [
             'skeleton.css',
             'line-progress.css',
         ],
-        'scripts' => [
+        'js' => [
 
         ],
     ];
@@ -77,21 +77,21 @@ class LaramodalServiceProvider extends ServiceProvider
         // inject required css & javascript
         Blade::include('laramodal::init', 'laramodalInit');
        
-        Blade::directive('laramodalStyles', function () {
+        Blade::directive('laramodalCss', function () {
             return $this->getComponentStyles();
         });
 
-        Blade::directive('laramodalScripts', function () {
+        Blade::directive('laramodalJs', function () {
             return $this->getComponentScripts();
         });
     }
 
     private function getComponentStyles()
     {
-        $styles = self::$assets['styles'] ?? [];
+        $styles = self::$assets['css'] ?? [];
 
         if (is_array($styles) && (count($styles) >= 1)) {
-            return collect(self::$assets['styles'])->map(function($item) {
+            return collect($styles)->map(function($item) {
                 return asset("/vendor/laramodal/css/{$item}");
             })->flatten()->map(function($styleUrl) {
                 return '<link media="all" type="text/css" rel="stylesheet" href="' . $styleUrl . '">';
@@ -103,7 +103,7 @@ class LaramodalServiceProvider extends ServiceProvider
 
     private function getComponentScripts()
     {
-        $scripts = self::$assets['scripts'] ?? [];
+        $scripts = self::$assets['js'] ?? [];
 
         if (is_array($scripts) && (count($scripts) >= 1)) {
             return collect($scripts)->map(function($item) {
