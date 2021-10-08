@@ -61,25 +61,22 @@
                     <!--end::Modal body-->
                 </div>
 
-                <div
-                    x-show="show && showActiveComponent"
-                >
-                    <!--begin::Modal body-->
-                    <div class="modal-body py-lg-10 px-lg-10 bg-body">
+                <div x-show="show && showActiveComponent">
+                    <div class="modal-body p-0 m-0 rounded-bottom">
                         {{-- progress ui --}}
                         <div class="row" id="progress-ui">
-                            <div wire:loading class="col-md-12 w-100">
+                            <div wire:loading class="col-12">
                                 <div class="progress-line"></div>
                             </div>
                         </div>
 
-                        @if($activeModal)
-                            @livewire($activeModal, ['args' => $args], key($activeModal))
-                        @endif
+                        <div class="card p-10 m-0">
+                            @if($activeModal)
+                                @livewire($activeModal, ['args' => $args], key($activeModal))
+                            @endif
+                        </div>
 
                     </div>
-                    <div class="modal-footer border-0"></div>
-
                     <!--end::Modal body-->
                 </div>
             </div>
