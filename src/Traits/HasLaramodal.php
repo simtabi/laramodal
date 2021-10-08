@@ -5,6 +5,10 @@ namespace Simtabi\Laramodal\Traits;
 trait HasLaramodal
 {
 
+    public ?string $activeModal = null;
+    public array   $components  = [];
+    public array   $args        = [];
+
     public function closeModal(): void
     {
         $this->emit('hideModal');
@@ -18,8 +22,8 @@ trait HasLaramodal
 
     public function resetState()
     {
-        $this->activeComponent = null;
-        $this->components      = [];
+        $this->activeModal = null;
+        $this->components  = [];
     }
 
     public function resetModal()

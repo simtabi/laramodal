@@ -13,13 +13,10 @@ class Laramodal extends Component
     use HasLivewireEvents;
     use HasLaramodal;
 
-    public ?string $activeModal = null;
-    public array   $components  = [];
     protected      $listeners   = [
         'openModal'  => 'openModal',
         'resetModal' => 'resetModal',
     ];
-    public array   $args        = [];
 
     public function __construct()
     {
@@ -36,7 +33,8 @@ class Laramodal extends Component
         return view('laramodal::livewire.laramodal');
     }
 
-    public function openModal($modal, $args = []) {
+    public function openModal($modal, $args = [])
+    {
 
         $this->resetErrorBag();
         $this->resetValidation();
@@ -57,12 +55,14 @@ class Laramodal extends Component
     public function getComponentMethod($method)
     {
 
-        if (empty($this->activeModal)) {
+        if (empty($this->activeModal))
+        {
             return false;
         }
 
         $namespace = app('livewire')->getClass($this->activeModal);
-        if (method_exists($namespace, $method)) {
+        if (method_exists($namespace, $method))
+        {
             return $namespace::$method();
         }
 
