@@ -1,9 +1,9 @@
 @props([
-    'selfCall' => false,
-    'modal',
-    'size',
-    'heading',
     'subHeading',
+    'selfCall' => false,
+    'heading',
+    'modal',
+    'size'     => 'lg',
     'args',
 ])
 

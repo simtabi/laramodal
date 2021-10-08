@@ -4,21 +4,22 @@ namespace Simtabi\Laramodal;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\Compilers\BladeCompiler;
 use Livewire\Livewire;
-use Simtabi\Laramodal\Components\Blade\Trigger;
-use Simtabi\Laramodal\Components\Livewire\Laramodal;
+use Simtabi\Laramodal\Livewire\Laramodal;
 
 class LaramodalServiceProvider extends ServiceProvider
 {
 
-    private const PATH = __DIR__ . '/../';
-
-    public static array $assets = [
-        'css'  => [
+    /** @var string */
+    protected const PACKAGE_NAME = 'laramodal';
+    private   const PATH         = __DIR__ . '/../';
+    public static array $assets  = [
+        'css' => [
             'skeleton.css',
             'line-progress.css',
         ],
-        'js' => [
+        'js'  => [
 
         ],
     ];
@@ -40,14 +41,12 @@ class LaramodalServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(self::PATH .'config/laramodal.php', 'laramodal');
 
         // load views
-        $this->loadViewsFrom(self::PATH . 'resources/views', 'laramodal');
-
-        $this->loadViewComponentsAs('laramodal', [
-            'trigger' => Trigger::class,
-        ]);
+        $this->loadViewsFrom(self::PATH . 'resources/views', self::PACKAGE_NAME);
 
         $this->registerDirectives();
         $this->registerPublishables();
+
+        $this->configureComponents();
 
         // livewire component
         Livewire::component('laramodal', Laramodal::class);
@@ -76,7 +75,7 @@ class LaramodalServiceProvider extends ServiceProvider
 
         // inject required css & javascript
         Blade::include('laramodal::init', 'laramodalInit');
-       
+
         Blade::directive('laramodalCss', function () {
             return $this->getComponentStyles();
         });
@@ -115,6 +114,32 @@ class LaramodalServiceProvider extends ServiceProvider
         }
 
         return false;
+    }
+
+    /**
+     * Configure the Jetstream Blade components.
+     *
+     * @return void
+     */
+    protected function configureComponents()
+    {
+        $this->callAfterResolving(BladeCompiler::class, function () {
+            $this->registerComponent('alerts', 'show');
+            $this->registerComponent('trigger', 'modal');
+        });
+    }
+
+    /**
+     * Register the given component.
+     *
+     * @param string $component
+     * @param string|null $alias
+     * @param string|null $folder
+     * @return void
+     */
+    protected function registerComponent(string $component, ?string $alias = null, ?string $folder = null)
+    {
+        Blade::component(self::PACKAGE_NAME . '::components.' . (!empty($folder) ? "$folder." : '') . $component, (!empty($alias) ? "$alias-" : '') . $component);
     }
 
 }

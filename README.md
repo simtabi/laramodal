@@ -86,12 +86,12 @@ No consideration required, create livewire component as usual. Use livewire's `m
 ###### ✔️ Via Trigger Blade Component
 
 ```html
-   <x-laramodal-trigger class="btn btn-lg btn-block btn-flex btn-primary btn-active-primary fw-bolder text-center"
+   <x-modal-trigger class="btn btn-lg btn-block btn-flex btn-primary btn-active-primary fw-bolder text-center"
                         modal="component-name"
                         :args="[]"
 >
     {{__('Title')}}
-</x-laramodal-trigger>
+</x-modal-trigger>
 ```
 
 ###### ✔️ From Livewire Class

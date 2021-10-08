@@ -1,6 +1,6 @@
 <?php
 
-namespace Simtabi\Laramodal\Components\Livewire;
+namespace Simtabi\Laramodal\Livewire;
 
 use Livewire\Component;
 use Simtabi\Laramodal\Traits\HasLaramodal;
@@ -13,7 +13,7 @@ class Laramodal extends Component
     use HasLivewireEvents;
     use HasLaramodal;
 
-    protected      $listeners   = [
+    protected $listeners   = [
         'openModal'  => 'openModal',
         'resetModal' => 'resetModal',
     ];
