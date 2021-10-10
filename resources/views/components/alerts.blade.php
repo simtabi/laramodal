@@ -17,7 +17,7 @@
 @endphp
 
 @if($show)
-    <div class="alert alert-{{ $type }} alert-dismissible fade show">
+    <div {!! $attributes->merge(["class" => "alert alert-$type alert-dismissible fade show"]) !!}>
         <div class="media align-items-center">
             {!! $icon !!}
             <div class="media-body ml-2">

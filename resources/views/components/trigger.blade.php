@@ -1,5 +1,6 @@
 @props([
     'subHeading',
+    'isButton' => true,
     'selfCall' => false,
     'heading',
     'modal',
@@ -7,21 +8,27 @@
     'args',
 ])
 
-<button
-    onclick='Livewire.emit("openModal", "{{$modal}}", {{ json_encode(array_merge(($args ?? []), [
+@if($isButton)
+    <button type="button"
+@else
+    <a href="#"
+       @endif
+       onclick='Livewire.emit("openModal", "{{$modal}}", {{ json_encode(array_merge(($args ?? []), [
                         'modal'      => $modal      ?? '',
                         'size'       => $size       ?? '',
                         'heading'    => $heading    ?? '',
                         'subHeading' => $subHeading ?? '',
                     ])) }})'
-
-    type="button"
-    class="{{ $attributes->has('class') ? $attributes->get('class') : 'btn btn-primary' }}"
-    data-toggle="modal"
->
-    {{ $slot }}
-</button>
-
+       {!! $attributes->merge(["class" => "btn btn-primary"]) !!}
+       class="{{ $attributes->has('class') ? $attributes->get('class') : '' }}"
+       data-toggle="modal"
+    >
+        {{ $slot }}
+        @if($isButton)
+        </button>
+        @else
+    </a>
+@endif
 
 {{--
  <button
