@@ -8,15 +8,16 @@
     'args',
 ])
 
-@if($isButton) <button type="button" @else <a href="#" @endif
-    onclick='Livewire.emit("openModal", "{{$modal}}", {{ json_encode(array_merge(($args ?? []), [
+@if($isButton)
+    <button type="button" @else <a href="#" @endif
+onclick='Livewire.emit("openModal", "{{$modal}}", {{ json_encode(array_merge(($args ?? []), [
         'modal'      => $modal      ?? '',
         'size'       => $size       ?? '',
         'heading'    => $heading    ?? '',
         'subHeading' => $subHeading ?? '',
     ])) }})'
-    {!! $attributes->merge(["class" => "btn btn-primary"]) !!}
-    data-toggle="modal"
+                                   {!! $attributes !!}
+                                   data-toggle="modal"
 >
     {{ $slot }}
     @if($isButton) </button> @else </a> @endif
