@@ -4,6 +4,7 @@ namespace Simtabi\Laramodal\Livewire;
 
 use Livewire\Component;
 use Simtabi\Laranail\Traits\HasLivewireEvents;
+use ReflectionClass;
 use Pheg;
 
 class Laramodal extends Component
