@@ -4,7 +4,7 @@ namespace Simtabi\Laramodal\Livewire;
 
 use Livewire\Component;
 use Simtabi\Laranail\Traits\HasLivewireEvents;
-use ReflectionClass;
+use Pheg;
 
 class Laramodal extends Component
 {
@@ -29,6 +29,11 @@ class Laramodal extends Component
     public function render()
     {
         return view('laramodal::livewire.laramodal');
+    }
+
+    public function getArgs(bool $asObject = true): array|object
+    {
+        return $asObject ? Pheg::fromAnyToStdObject($this->args) : $this->args;
     }
 
     public function openModal($modal, $args = [])
@@ -69,20 +74,17 @@ class Laramodal extends Component
 
     public function getModalSize($data)
     {
-        $size = $this->getComponentMethod('getModalSize');
-        return !empty($size) ? $size : ($data['size'] ?? 'lg');
+        return ($data['size'] ?? $this->getComponentMethod('getModalSize')) ?? 'lg';
     }
 
     public function getModalHeading($data)
     {
-        $subHeading = $this->getComponentMethod('getModalTitle');
-        return !empty($subHeading) ? $subHeading : ($data['subHeading'] ?? '');
+        return $data['heading'] ?? $this->getComponentMethod('getModalTitle');
     }
 
     public function getModalSubHeading($data)
     {
-        $heading = $this->getComponentMethod('getModalSubTitle');
-        return !empty($heading) ? $heading : ($data['heading'] ?? '');
+        return $data['subHeading'] ?? $this->getComponentMethod('getModalSubTitle');
     }
 
 }
