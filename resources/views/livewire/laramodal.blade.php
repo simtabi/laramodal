@@ -61,7 +61,7 @@
                                 <div class="progress-line"></div>
                             </div>
                         </div>
-                        <div class="card p-10 m-0 row">
+                        <div class="card p-5 pb-8 m-0 row">
                             @if($activeModal)
                                 @livewire($activeModal, ['args' => $args], key($activeModal))
                             @endif
