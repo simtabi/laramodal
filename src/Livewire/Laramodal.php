@@ -5,7 +5,6 @@ namespace Simtabi\Laramodal\Livewire;
 use Livewire\Component;
 use Simtabi\Laranail\Traits\HasLivewireEvents;
 use ReflectionClass;
-use Pheg;
 
 class Laramodal extends Component
 {
@@ -34,7 +33,7 @@ class Laramodal extends Component
 
     public function getArgs(bool $asObject = true): array|object
     {
-        return $asObject ? Pheg::fromAnyToStdObject($this->args) : $this->args;
+        return $asObject ? pheg()->transfigure()->toObject($this->args) : $this->args;
     }
 
     public function openModal($modal, $args = [])

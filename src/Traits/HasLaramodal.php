@@ -9,29 +9,37 @@ trait HasLaramodal
     public array   $components  = [];
     public array   $args        = [];
 
-    public function closeModal(): void
+    public function closeModal(): self
     {
         $this->emit('hideModal');
+
+        return $this;
     }
 
-    public function closeModalWithEvents(array $events): void
+    public function closeModalWithEvents(array $events): self
     {
         $this->closeModal();
         $this->emitModalEvents($events);
+
+        return $this;
     }
 
-    public function resetState()
+    public function resetState(): self
     {
         $this->activeModal = null;
         $this->components  = [];
+
+        return $this;
     }
 
-    public function resetModal()
+    public function resetModal(): self
     {
         $this->reset();
+
+        return $this;
     }
 
-    private function emitModalEvents(array $events): void
+    private function emitModalEvents(array $events): self
     {
         foreach ($events as $component => $event) {
             if (is_array($event)) {
@@ -44,6 +52,8 @@ trait HasLaramodal
                 $this->emitTo($component, $event, ...$params ?? []);
             }
         }
+
+        return $this;
     }
 
 }
