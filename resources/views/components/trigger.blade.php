@@ -5,19 +5,23 @@
     'heading',
     'modal',
     'size'     => 'lg',
+    'tooltip'  => null,
     'args',
 ])
 
-@if($isButton)
-    <button type="button" @else <a href="#" @endif
+@if($isButton)<button type="button" @else <a href="#" @endif
+
 onclick='Livewire.emit("openModal", "{{$modal}}", {{ json_encode(array_merge(($args ?? []), [
-        'modal'      => $modal      ?? '',
-        'size'       => $size       ?? '',
-        'heading'    => $heading    ?? '',
-        'subHeading' => $subHeading ?? '',
-    ])) }})'
-                                   {!! $attributes !!}
-                                   data-toggle="modal"
+    'modal'      => $modal      ?? '',
+    'size'       => $size       ?? '',
+    'heading'    => $heading    ?? '',
+    'subHeading' => $subHeading ?? '',
+])) }})'
+        {!! $attributes !!}
+
+@if(!empty($tooltip))
+    {!! $tooltip !!}
+        @endif
 >
     {{ $slot }}
     @if($isButton) </button> @else </a> @endif
