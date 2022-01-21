@@ -4,7 +4,6 @@ namespace Simtabi\Laramodal\Livewire;
 
 use Livewire\Component;
 use Simtabi\Laranail\Traits\HasLivewireEvents;
-use ReflectionClass;
 
 class Laramodal extends Component
 {
@@ -16,14 +15,9 @@ class Laramodal extends Component
         'resetModal' => 'resetModal',
     ];
 
-    public function __construct()
-    {
-        $this->initComponent();
-    }
-
     public function mount()
     {
-
+        $this->initComponent();
     }
 
     public function render()
