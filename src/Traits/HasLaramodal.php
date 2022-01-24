@@ -7,7 +7,6 @@ trait HasLaramodal
 
     public ?string $activeModal = null;
     public array   $components  = [];
-    public array   $args        = [];
 
     public function closeModal(): self
     {
