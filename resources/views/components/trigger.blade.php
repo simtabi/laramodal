@@ -1,12 +1,12 @@
 @props([
-    'subHeading',
-    'isButton' => true,
-    'selfCall' => false,
-    'heading',
-    'modal',
-    'size'     => 'lg',
-    'tooltip'  => null,
-    'args',
+'subHeading',
+'isButton' => true,
+'selfCall' => false,
+'heading',
+'modal',
+'size'     => 'lg',
+'tooltip'  => null,
+'args',
 ])
 
 @if($isButton)<button type="button" @else <a href="#" @endif
@@ -17,13 +17,13 @@ onclick='Livewire.emit("openModal", "{{$modal}}", {{ json_encode(array_merge(($a
     'heading'    => $heading    ?? '',
     'subHeading' => $subHeading ?? '',
 ])) }})'
-        {!! $attributes !!}
+        {!! $attributes->merge(['class' => 'd-flex align-items-center']) !!}
 
 @if(!empty($tooltip))
     {!! $tooltip !!}
         @endif
 >
-    {{ $slot }}
+    {!! $slot !!}
     @if($isButton) </button> @else </a> @endif
 
 {{--
