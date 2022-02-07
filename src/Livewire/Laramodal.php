@@ -3,7 +3,7 @@
 namespace Simtabi\Laramodal\Livewire;
 
 use Livewire\Component;
-use Simtabi\Laranail\Traits\HasLivewireEvents;
+use Simtabi\Laranail\Traits\Livewire\HasLivewireEvents;
 
 class Laramodal extends Component
 {
