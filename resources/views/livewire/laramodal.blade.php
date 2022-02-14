@@ -16,7 +16,7 @@
     <div class="modal-dialog modal-dialog-centered mw-900px" role="document">
         <div class="modal-content">
 
-            <div class="modal-header">
+            <div class="modal-header ps-5">
                 <div class="d-flex flex-row align-items-center">
                     <h2 class="modal-title me-4" x-text="heading"></h2>
                     <template x-if="!show">
