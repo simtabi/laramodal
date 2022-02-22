@@ -17,7 +17,7 @@ onclick='Livewire.emit("openModal", "{{$modal}}", {{ json_encode(array_merge(($a
     'heading'    => $heading    ?? '',
     'subHeading' => $subHeading ?? '',
 ])) }})'
-        {!! $attributes->merge(['class' => 'd-flex align-items-center']) !!}
+        {!! $attributes->merge(['class' => 'align-items-center']) !!}
 
 @if(!empty($tooltip))
     {!! $tooltip !!}
