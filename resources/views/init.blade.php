@@ -53,7 +53,10 @@
                 }
 
                 setTimeout(() => {
-                    (bootstrap.Modal.getInstance(this.getModalElement())).hide();
+                    var bsModal = bootstrap.Modal.getInstance(this.getModalElement());
+                    if (bsModal) {
+                        bsModal.hide();
+                    }
                 });
             },
 
@@ -77,7 +80,7 @@
                 });
 
                 Livewire.on('hideModal', () => {
-                   this.closeModal();
+                    this.closeModal();
                 });
 
                 this.getModalElement().addEventListener('hidden.bs.modal', () => {
