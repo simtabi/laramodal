@@ -11,9 +11,10 @@ use Simtabi\Laramodal\Livewire\Laramodal;
 class LaramodalServiceProvider extends ServiceProvider
 {
 
-    /** @var string */
-    protected const PACKAGE_NAME = 'laramodal';
-    private   const PATH         = __DIR__ . '/../';
+    private string $packageName = 'laramodal';
+    private const  PACKAGE_PATH = __DIR__ . '/../../';
+
+
     public static array $assets  = [
         'css' => [
             'skeleton.css',
@@ -38,13 +39,13 @@ class LaramodalServiceProvider extends ServiceProvider
     {
 
         // merge configurations
-        $this->mergeConfigFrom(self::PATH .'config/laramodal.php', 'laramodal');
+        $this->mergeConfigFrom(self::PACKAGE_PATH .'config/laramodal.php', 'laramodal');
 
         // load views
-        $this->loadViewsFrom(self::PATH . 'resources/views', self::PACKAGE_NAME);
+        $this->loadViewsFrom(self::PACKAGE_PATH . 'resources/views', $this->packageName);
 
         $this->registerDirectives();
-        $this->registerPublishables();
+        $this->registerConsoles();
 
         $this->configureComponents();
 
@@ -52,23 +53,30 @@ class LaramodalServiceProvider extends ServiceProvider
         Livewire::component('laramodal', Laramodal::class);
     }
 
-    private function registerPublishables(): void
+    private function registerConsoles(): static
     {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                self::PATH . 'config/laramodal.php' => config_path('laramodal.php'),
-            ], 'laramodal:config');
+        if ($this->app->runningInConsole())
+        {
 
             $this->publishes([
-                self::PATH . 'public'               => public_path('vendor/laramodal'),
-            ], 'laramodal:assets');
+                self::PACKAGE_PATH . "config/{$this->packageName}.php" => config_path("{$this->packageName}.php"),
+            ], "{$this->packageName}:config");
 
             $this->publishes([
-                self::PATH . 'resources/views'      => resource_path('views/vendor/laramodal'),
-            ], 'laramodal:views');
+                self::PACKAGE_PATH . "public"                          => public_path("vendor/{$this->packageName}"),
+            ], "{$this->packageName}:assets");
+
+            $this->publishes([
+                self::PACKAGE_PATH . "resources/views"                 => resource_path("views/vendor/{$this->packageName}"),
+            ], "{$this->packageName}:views");
+
+            $this->publishes([
+                self::PACKAGE_PATH . "resources/lang"                  => $this->app->langPath("vendor/{$this->packageName}"),
+            ], "{$this->packageName}:translations");
         }
-    }
 
+        return $this;
+    }
 
     private function registerDirectives()
     {
@@ -139,7 +147,7 @@ class LaramodalServiceProvider extends ServiceProvider
      */
     protected function registerComponent(string $component, ?string $alias = null, ?string $folder = null)
     {
-        Blade::component(self::PACKAGE_NAME . '::components.' . (!empty($folder) ? "$folder." : '') . $component, (!empty($alias) ? "$alias-" : '') . $component);
+        Blade::component($this->packageName . '::components.' . (!empty($folder) ? "$folder." : '') . $component, (!empty($alias) ? "$alias-" : '') . $component);
     }
 
 }
