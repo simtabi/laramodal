@@ -11,12 +11,7 @@
 
 @if($isButton)<button type="button" @else <a href="#" @endif
 
-onclick='Livewire.emit("openModal", "{{$modal}}", {{ json_encode(array_merge(($args ?? []), [
-    'modal'      => $modal      ?? '',
-    'size'       => $size       ?? '',
-    'heading'    => $heading    ?? '',
-    'subHeading' => $subHeading ?? '',
-])) }})'
+onclick='emitLivewire()'
         {!! $attributes->merge(['class' => 'align-items-center']) !!}
 
 @if(!empty($tooltip))
@@ -25,7 +20,17 @@ onclick='Livewire.emit("openModal", "{{$modal}}", {{ json_encode(array_merge(($a
 >
     {!! $slot !!}
     @if($isButton) </button> @else </a> @endif
-
+<script>
+    function emitLivewire(e) {
+    e.preventDefault();
+        Livewire.emit("openModal", "{{$modal}}", {{ json_encode(array_merge(($args ?? []), [
+    'modal'      => $modal      ?? '',
+    'size'       => $size       ?? '',
+    'heading'    => $heading    ?? '',
+    'subHeading' => $subHeading ?? '',
+])) }})
+    }
+</script>
 {{--
  <button
 
