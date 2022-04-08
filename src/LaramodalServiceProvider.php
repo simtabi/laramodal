@@ -14,7 +14,6 @@ class LaramodalServiceProvider extends ServiceProvider
     private string $packageName = 'laramodal';
     private const  PACKAGE_PATH = __DIR__ . '/../../';
 
-
     public static array $assets  = [
         'css' => [
             'skeleton.css',
@@ -32,18 +31,14 @@ class LaramodalServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->loadTranslationsFrom(self::PACKAGE_PATH . "resources/lang/", $this->packageName);
+        $this->loadMigrationsFrom(self::PACKAGE_PATH.'/../database/migrations');
+        $this->loadViewsFrom(self::PACKAGE_PATH . "resources/views", $this->packageName);
+        $this->mergeConfigFrom(self::PACKAGE_PATH . "config/config.php", $this->packageName);
     }
 
     public function boot()
     {
-
-        // merge configurations
-        $this->mergeConfigFrom(self::PACKAGE_PATH .'config/laramodal.php', 'laramodal');
-
-        // load views
-        $this->loadViewsFrom(self::PACKAGE_PATH . 'resources/views', $this->packageName);
-
         $this->registerDirectives();
         $this->registerConsoles();
 
@@ -59,7 +54,7 @@ class LaramodalServiceProvider extends ServiceProvider
         {
 
             $this->publishes([
-                self::PACKAGE_PATH . "config/{$this->packageName}.php" => config_path("{$this->packageName}.php"),
+                self::PACKAGE_PATH . "config/config.php"               => config_path("{$this->packageName}.php"),
             ], "{$this->packageName}:config");
 
             $this->publishes([
