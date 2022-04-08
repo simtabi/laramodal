@@ -12,7 +12,7 @@ class LaramodalServiceProvider extends ServiceProvider
 {
 
     private string $packageName = 'laramodal';
-    private const  PACKAGE_PATH = __DIR__ . '/../../';
+    private const  PACKAGE_PATH = __DIR__ . '/../';
 
     public static array $assets  = [
         'css' => [
